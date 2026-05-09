@@ -1,0 +1,35 @@
+<!-- Firebase Setup - මේක ඔයාගේ Script එකට උඩින් දාන්න -->
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+
+<script>
+    // ඔයාගේ Firebase Configuration එක මෙතනට එනවා
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "virelix-ai.firebaseapp.com",
+        databaseURL: "https://virelix-ai-default-rtdb.firebaseio.com",
+        projectId: "virelix-ai",
+        storageBucket: "virelix-ai.appspot.com",
+    };
+
+    // Firebase Initialize කිරීම
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // 📦 අලුත් ඕඩර් එකක් ඩේටාබේස් එකට යවන Function එක
+    function saveOrderToDB(orderData) {
+        const orderRef = database.ref('orders/' + orderData.orderId);
+        orderRef.set({
+            product: orderData.product,
+            customer: orderData.name,
+            phone: orderData.phone,
+            price: orderData.price,
+            status: "Pending",
+            timestamp: new Date().toISOString()
+        }).then(() => {
+            console.log("Order Saved to Virelix.ai Database!");
+            // මෙතනදී තමයි අර කලින් හදපු Auto-Fulfillment Engine එකට Signal එක දෙන්නේ
+            runAutoPilot(orderData.orderId); 
+        });
+    }
+</script>

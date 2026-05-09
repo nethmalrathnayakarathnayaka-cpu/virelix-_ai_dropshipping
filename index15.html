@@ -1,0 +1,58 @@
+<div class="brand-container">
+    <!-- Shopify Style Icon -->
+    <div class="virelix-icon">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Bag Shape -->
+            <path d="M25 35H75V85C75 87.7614 72.7614 90 70 90H30C27.2386 90 25 87.7614 25 85V35Z" fill="#00ffa3"/>
+            <!-- Handle -->
+            <path d="M40 35V25C40 19.4772 44.4772 15 50 15C55.5228 15 60 19.4772 60 25V35" stroke="#00ffa3" stroke-width="8" stroke-linecap="round"/>
+            <!-- V Letter inside -->
+            <path d="M40 50L50 70L60 50" stroke="#050508" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+    
+    <!-- Brand Name Below -->
+    <div class="virelix-text">virelix</div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&display=swap');
+
+    .brand-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+        background: transparent;
+    }
+
+    .virelix-icon {
+        width: 80px;
+        height: 80px;
+        filter: drop-shadow(0 0 15px rgba(0, 255, 163, 0.3));
+        transition: transform 0.3s ease;
+    }
+
+    .brand-container:hover .virelix-icon {
+        transform: translateY(-5px) scale(1.05);
+    }
+
+    .virelix-text {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+        color: #ffffff;
+        letter-spacing: -0.5px;
+        text-transform: lowercase; /* Shopify වගේම lowercase style එක */
+    }
+
+    /* AI Dot (Optional) */
+    .virelix-text::after {
+        content: '.ai';
+        font-size: 14px;
+        color: #00ffa3;
+        vertical-align: top;
+        margin-left: 2px;
+    }
+</style>

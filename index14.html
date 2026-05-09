@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VIRELIX.AI | Admin Access</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: #050508;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+        }
+
+        .login-box {
+            background: #0f0f1a;
+            padding: 40px;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 255, 163, 0.1);
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #00ffa3;
+            margin-bottom: 30px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: #1a1a2e;
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: #00ffa3;
+            color: black;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 163, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-box">
+    <div class="logo-text">VIRELIX.AI</div>
+    <p style="color: #666; font-size: 14px;">Master Controller Login</p>
+    
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    
+    <button class="btn-login" onclick="checkLogin()">AUTHORIZE ACCESS</button>
+    
+    <p id="msg" style="margin-top: 15px; font-size: 13px; color: #ff4747;"></p>
+</div>
+
+<script>
+    function checkLogin() {
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
+        const msg = document.getElementById('msg');
+
+        // මෙතැනදී ඔයාට අවශ්‍ය Username සහ Password එක ලබා දෙන්න
+        if(user === "nethmal" && pass === "virelix2026") {
+            msg.style.color = "#00ffa3";
+            msg.innerText = "Access Granted! Redirecting...";
+            setTimeout(() => {
+                // Dashboard එකට Redirect වීම
+                window.location.href = "automation.html"; 
+            }, 1500);
+        } else {
+            msg.innerText = "Invalid Credentials. Access Denied.";
+        }
+    }
+</script>
+
+</body>
+</html>

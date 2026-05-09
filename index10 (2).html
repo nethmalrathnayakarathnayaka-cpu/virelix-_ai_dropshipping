@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - VIRELIX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-orange: #ff4747;
+            --bg-light: #f4f4f7;
+            --text-dark: #222;
+        }
+
+        body { font-family: 'Inter', sans-serif; background: var(--bg-light); margin: 0; color: var(--text-dark); }
+
+        .container { max-width: 1200px; margin: 30px auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+
+        /* Left Side: Media Gallery */
+        .product-media { position: sticky; top: 100px; }
+        .main-img { width: 100%; border-radius: 15px; border: 1px solid #eee; }
+        .thumb-grid { display: flex; gap: 10px; margin-top: 15px; }
+        .thumb { width: 80px; height: 80px; border-radius: 8px; cursor: pointer; border: 2px solid transparent; object-fit: cover; }
+        .thumb:hover { border-color: var(--primary-orange); }
+
+        /* AI Video Button */
+        .ai-video-btn { background: linear-gradient(45deg, #000, #333); color: #fff; padding: 15px; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; cursor: pointer; border: none; font-weight: bold; width: 100%; }
+        .ai-video-btn i { color: #00e5ff; font-size: 20px; }
+
+        /* Right Side: Product Info */
+        .price-section { background: #fff1f1; padding: 20px; border-radius: 12px; margin: 20px 0; }
+        .current-price { font-size: 32px; font-weight: 800; color: var(--primary-orange); }
+        .old-price { text-decoration: line-through; color: #999; margin-left: 10px; }
+
+        .option-group { margin-bottom: 25px; }
+        .option-title { font-weight: bold; margin-bottom: 10px; display: block; font-size: 14px; }
+        .option-chips { display: flex; gap: 10px; }
+        .chip { padding: 8px 20px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; transition: 0.2s; font-size: 14px; }
+        .chip:hover, .chip.active { border-color: var(--primary-orange); color: var(--primary-orange); background: #fff1f1; }
+
+        .buy-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
+        .btn { padding: 18px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; font-size: 16px; transition: 0.3s; }
+        .btn-cart { background: #fff; border: 2px solid var(--primary-orange); color: var(--primary-orange); }
+        .btn-buy { background: var(--primary-orange); color: #fff; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 71, 71, 0.3); }
+
+        /* Trust Badges */
+        .trust-badges { display: flex; gap: 20px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Media Section -->
+    <div class="product-media">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800" class="main-img" id="mainImg">
+        <div class="thumb-grid">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200" class="thumb" onclick="changeImg(this.src)">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200" class="thumb" onclick="changeImg(this.src)">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200" class="thumb" onclick="changeImg(this.src)">
+        </div>
+
+        <button class="ai-video-btn" onclick="openAIVideo()">
+            <i class="fa fa-play-circle"></i> WATCH AI VIDEO REVIEW
+        </button>
+    </div>
+
+    <!-- Info Section -->
+    <div class="product-info">
+        <span style="color: #00b894; font-weight: bold; font-size: 13px;">In Stock - Ready to Ship</span>
+        <h1 style="font-size: 24px; margin: 10px 0;">Premium Smart Edition Watch - 2026 Series Z</h1>
+        
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: #ffbc00;">
+            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i>
+            <span style="color: #666;">(1,240 Reviews) | 4.8 Rating</span>
+        </div>
+
+        <div class="price-section">
+            <span class="current-price">LKR 4,500.00</span>
+            <span class="old-price">LKR 6,200.00</span>
+            <div style="color: var(--primary-orange); font-size: 12px; margin-top: 5px; font-weight: bold;">Save 30% Today</div>
+        </div>
+
+        <div class="option-group">
+            <span class="option-title">Select Color</span>
+            <div class="option-chips">
+                <div class="chip active">Midnight Black</div>
+                <div class="chip">Ocean Blue</div>
+                <div class="chip">Silver Gold</div>
+            </div>
+        </div>
+
+        <div class="option-group">
+            <span class="option-title">Quantity</span>
+            <input type="number" value="1" min="1" style="width: 60px; padding: 8px; border-radius: 5px; border: 1px solid #ddd;">
+        </div>
+
+        <div class="buy-actions">
+            <button class="btn btn-cart">ADD TO CART</button>
+            <button class="btn btn-buy">BUY NOW</button>
+        </div>
+
+        <div class="trust-badges">
+            <span><i class="fa fa-shield-alt"></i> 7-Day Warranty</span>
+            <span><i class="fa fa-truck"></i> Fast Islandwide Delivery</span>
+            <span><i class="fa fa-undo"></i> Easy Returns</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    function changeImg(src) {
+        document.getElementById('mainImg').src = src;
+    }
+
+    function openAIVideo() {
+        alert("🎥 AI Video Generating... පාරිභෝගිකයාට භාණ්ඩය ගැන විස්තර කරන AI වීඩියෝව මෙතැනදී ප්ලේ වේ.");
+    }
+</script>
+
+</body>
+</html>

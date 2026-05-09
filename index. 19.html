@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIRELIX.AI | Integrated Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --neon: #00ffa3; --bg: #050508; --panel: #0f0f1a; --gray: #888; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: white; margin: 0; overflow-x: hidden; }
+        
+        /* Transition Effects */
+        .page { display: none; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Login Styling */
+        #login-page { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .login-card { background: var(--panel); padding: 40px; border-radius: 25px; border: 1px solid rgba(0,255,163,0.1); width: 350px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        input { width: 100%; padding: 15px; margin: 10px 0; background: #151525; border: 1px solid #333; border-radius: 12px; color: white; box-sizing: border-box; outline: none; }
+        input:focus { border-color: var(--neon); }
+        .btn-neon { width: 100%; padding: 15px; background: var(--neon); color: black; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-neon:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(0,255,163,0.4); }
+
+        /* Dashboard Styling */
+        #dashboard-page { display: none; height: 100vh; }
+        .sidebar { width: 260px; background: var(--panel); border-right: 1px solid rgba(255,255,255,0.05); padding: 30px 20px; display: flex; flex-direction: column; }
+        .main-content { flex-grow: 1; padding: 60px; overflow-y: auto; background: radial-gradient(circle at top right, #0a0a1f, #050508); }
+        
+        .nav-link { padding: 15px; color: var(--gray); cursor: pointer; display: flex; align-items: center; gap: 15px; border-radius: 12px; transition: 0.3s; margin-bottom: 8px; }
+        .nav-link:hover, .nav-link.active { color: var(--neon); background: rgba(0,255,163,0.05); }
+
+        /* Dashboard Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 30px; }
+        .stat-card { background: rgba(255,255,255,0.02); padding: 30px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; }
+        .stat-card::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px; background: var(--neon); }
+        
+        /* Logo Styles */
+        .logo-box { display: flex; flex-direction: column; align-items: center; margin-bottom: 50px; }
+        .v-icon { width: 50px; height: 50px; fill: var(--neon); margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. LOGIN PAGE -->
+    <div id="login-page" class="page" style="display: flex;">
+        <div class="logo-box">
+            <svg class="v-icon" viewBox="0 0 100 100"><path d="M25 35H75V85C75 87.7614 72.7614 90 70 90H30C27.2386 90 25 87.7614 25 85V35Z" fill="#00ffa3"/><path d="M40 35V25C40 19.4772 44.4772 15 50 15C55.5228 15 60 19.4772 60 25V35" stroke="#00ffa3" stroke-width="8" stroke-linecap="round"/><path d="M40 50L50 70L60 50" stroke="#050508" stroke-width="8" stroke-linecap="round"/></svg>
+            <div style="font-size: 28px; font-weight: 900;">virelix<span style="color:var(--neon)">.ai</span></div>
+        </div>
+        <div class="login-card">
+            <h3 style="margin-top: 0;">Master Access</h3>
+            <input type="text" id="user" placeholder="Username">
+            <input type="password" id="pass" placeholder="Password">
+            <button class="btn-neon" onclick="login()">AUTHORIZE</button>
+            <p id="error" style="color: #ff4747; font-size: 12px; margin-top: 15px; display: none;">Invalid Credentials</p>
+        </div>
+    </div>
+
+    <!-- 2. DASHBOARD PAGE -->
+    <div id="dashboard-page" class="page" style="display: none; flex-direction: row;">
+        <div class="sidebar">
+            <div style="font-size: 22px; font-weight: 900; margin-bottom: 40px;">virelix<span style="color:var(--neon)">.ai</span></div>
+            <div class="nav-link active"><i class="fa fa-grid-2"></i> Overview</div>
+            <div class="nav-link" onclick="runEngine()"><i class="fa fa-robot"></i> Auto-Pilot</div>
+            <div class="nav-link"><i class="fa fa-box"></i> Orders</div>
+            <div class="nav-link"><i class="fa fa-chart-line"></i> TRENDLINE Stats</div>
+            <div class="nav-link" style="margin-top: auto; color: #ff4747;" onclick="location.reload()"><i class="fa fa-sign-out-alt"></i> Logout</div>
+        </div>
+
+        <div class="main-content">
+            <header style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1 style="margin: 0; font-size: 32px;">Welcome, Nethmal Rathnayaka</h1>
+                    <p style="color: var(--gray); margin-top: 5px;">Your dropshipping ecosystem is active.</p>
+                </div>
+                <div style="background: var(--panel); padding: 10px 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                    <span id="clock">10:15 PM</span>
+                </div>
+            </header>
+
+            <div class="grid">
+                <div class="stat-card">
+                    <small style="color: var(--gray);">Today's Revenue</small>
+                    <h2 style="font-size: 32px; margin: 10px 0;">LKR 45,200</h2>
+                    <span style="color: var(--neon); font-size: 12px;">+12% from yesterday</span>
+                </div>
+                <div class="stat-card">
+                    <small style="color: var(--gray);">Net Profit</small>
+                    <h2 style="font-size: 32px; margin: 10px 0; color: var(--neon);">LKR 18,400</h2>
+                    <span style="color: var(--gray); font-size: 12px;">TRENDLINE store</span>
+                </div>
+                <div class="stat-card">
+                    <small style="color: var(--gray);">Active Orders</small>
+                    <h2 style="font-size: 32px; margin: 10px 0;">12</h2>
+                    <button class="btn-neon" style="padding: 8px; font-size: 12px;" onclick="runEngine()">PROCESS ALL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+            if(u === "nethmal" && p === "virelix2026") {
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('dashboard-page').style.display = 'flex';
+            } else {
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+
+        function runEngine() {
+            alert("Virelix AI Engine: Starting Auto-fulfillment for TRENDLINE store...");
+            // මෙතැනදී අනාගතයේදී API එක ක්‍රියාත්මක වේ
+        }
+
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }, 1000);
+    </script>
+</body>
+</html>

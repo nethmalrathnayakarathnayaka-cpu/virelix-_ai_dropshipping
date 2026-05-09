@@ -1,0 +1,60 @@
+<div class="product-container">
+    <!-- වම්පස: පින්තූරය -->
+    <div class="product-gallery">
+        <img src="https://ae01.alicdn.com/kf/S7b7...jpg" id="main-img" alt="Product Image">
+        <div class="thumbnails">
+            <img src="thumb1.jpg" onclick="changeImg(this.src)">
+            <img src="thumb2.jpg" onclick="changeImg(this.src)">
+        </div>
+    </div>
+
+    <!-- දකුණුපස: විස්තර -->
+    <div class="product-details">
+        <h1 class="product-title">New Simulated Gradient Peony Bouquet - Luxury Decor</h1>
+        
+        <div class="price-tag">
+            <span class="currency">LKR</span>
+            <span class="amount">5,631.35</span>
+            <span class="discount">3% OFF</span>
+        </div>
+
+        <div class="inventory-status">
+            <i class="fa fa-check-circle"></i> 100K+ items sold in AliExpress
+        </div>
+
+        <div class="options">
+            <p>Color: <strong>Green</strong></p>
+            <div class="color-picker">
+                <div class="color-box active" style="background: #e0f2f1;"></div>
+                <div class="color-box" style="background: #fce4ec;"></div>
+            </div>
+        </div>
+
+        <!-- ක්‍රියාකාරී බොත්තම් -->
+        <div class="action-buttons">
+            <button class="btn-import">IMPORT TO TRENDLINE</button>
+            <button class="btn-edit">EDIT DETAILS</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-container { display: flex; gap: 40px; background: #0f0f1a; padding: 30px; border-radius: 20px; border: 1px solid #1a1a2e; }
+    
+    .product-gallery img { width: 100%; border-radius: 15px; }
+    .thumbnails { display: flex; gap: 10px; margin-top: 15px; }
+    .thumbnails img { width: 60px; height: 60px; border-radius: 8px; cursor: pointer; border: 1px solid #333; }
+
+    .product-details { flex: 1; }
+    .product-title { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 15px; }
+    
+    .price-tag { margin: 20px 0; }
+    .amount { font-size: 36px; font-weight: 800; color: #00ffa3; }
+    .discount { background: rgba(255, 71, 71, 0.1); color: #ff4747; padding: 5px 10px; border-radius: 5px; margin-left: 10px; font-size: 14px; }
+
+    .inventory-status { color: #888; font-size: 14px; margin-bottom: 25px; }
+    
+    .action-buttons { display: flex; gap: 15px; margin-top: 30px; }
+    .btn-import { background: #00ffa3; color: #000; border: none; padding: 15px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; flex: 1; }
+    .btn-edit { background: transparent; border: 1px solid #333; color: #fff; padding: 15px 25px; border-radius: 10px; cursor: pointer; }
+</style>

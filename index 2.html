@@ -1,0 +1,187 @@
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIRELIX - Future of Dropshipping</title>
+    <style>
+        /* මූලික පෙනුම */
+        body { font-family: 'Segoe UI', sans-serif; background: #0b0b0f; color: white; margin: 0; overflow-x: hidden; }
+        
+        /* Navigation Bar */
+        nav { background: #151522; padding: 15px; text-align: center; border-bottom: 2px solid #00e5ff; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        nav a:hover { color: #00e5ff; text-shadow: 0 0 10px #00e5ff; }
+
+        /* Pages System */
+        .page { display: none; padding: 20px; animation: fadeIn 0.4s ease-in-out; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Home Page - Product Cards */
+        .store-header { text-align: center; padding: 40px 0; background: linear-gradient(rgba(0,229,255,0.1), transparent); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 30px; max-width: 1200px; margin: auto; }
+        .card { background: #151522; padding: 15px; border-radius: 20px; border: 1px solid #222; text-align: center; transition: 0.3s; position: relative; }
+        .card:hover { transform: scale(1.03); border-color: #00e5ff; box-shadow: 0 0 20px rgba(0,229,255,0.2); }
+        .card img { width: 100%; border-radius: 15px; height: 220px; object-fit: cover; }
+        .badge { position: absolute; top: 10px; right: 10px; background: #ff4747; padding: 5px 10px; border-radius: 5px; font-size: 12px; }
+        .btn-buy { background: #00e5ff; color: black; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px; }
+
+        /* Forms & Dashboards */
+        .box { background: #151522; padding: 40px; border-radius: 25px; max-width: 500px; margin: 50px auto; border: 1px solid #333; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        h2 { color: #00e5ff; border-bottom: 1px solid #333; padding-bottom: 15px; margin-bottom: 25px; text-align: center; }
+        input, select { width: 100%; padding: 14px; margin: 12px 0; border-radius: 10px; border: 1px solid #333; background: #0b0b0f; color: white; font-size: 16px; box-sizing: border-box; }
+        
+        .btn-action { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 16px; transition: 0.3s; }
+        .btn-ali { background: #ff4747; color: white; }
+        .btn-ai { background: #9d00ff; color: white; }
+        .btn-ali:hover, .btn-ai:hover { opacity: 0.8; transform: translateY(-2px); }
+
+        /* AI Status Area */
+        #videoStatus { margin-top: 20px; padding: 15px; border-radius: 10px; background: #1a1a2a; border-left: 4px solid #9d00ff; display: none; text-align: left; font-size: 14px; line-height: 1.6; }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #9d00ff; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; display: inline-block; margin-right: 10px; vertical-align: middle; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a onclick="showPage('home')">🏠 Home</a>
+    <a onclick="showPage('login')">🚀 Vendor Panel</a>
+</nav>
+
+<!-- 1. Store Front (Home) -->
+<div id="home" class="page active">
+    <div class="store-header">
+        <h1>VIRELIX GLOBAL STORE</h1>
+        <p>Premium Dropshipping Products Powered by AI</p>
+    </div>
+    <div id="product-list" class="grid">
+        <!-- Products will be injected here -->
+    </div>
+</div>
+
+<!-- 2. Authentication -->
+<div id="login" class="page">
+    <div class="box">
+        <h2>Vendor Login</h2>
+        <p style="text-align:center; color:#888;">ඔබේ TRENDLINE Store එකට ඇතුළු වන්න</p>
+        <input type="text" id="user" placeholder="Username">
+        <input type="password" id="pass" placeholder="Password">
+        <button class="btn-action" style="background:#00e5ff; color:black;" onclick="checkLogin()">Enter Dashboard</button>
+    </div>
+</div>
+
+<!-- 3. AI & Dropshipping Hub (Vendor Dashboard) -->
+<div id="vendor" class="page">
+    <div class="box" style="max-width: 600px;">
+        <h2>Virelix AI Hub</h2>
+        
+        <!-- AliExpress Import Section -->
+        <div style="margin-bottom: 30px;">
+            <p style="color: #00e5ff; font-weight: bold;">Step 1: AliExpress Auto-Import</p>
+            <input type="text" id="aliUrl" placeholder="AliExpress Product URL">
+            <button class="btn-action btn-ali" onclick="importAli()">Import Product Data</button>
+        </div>
+
+        <hr style="border: 0.5px solid #333;">
+
+        <!-- AI Content Section -->
+        <div style="margin-top: 30px;">
+            <p style="color: #9d00ff; font-weight: bold;">Step 2: Generate AI Video Review</p>
+            <select id="genderSelect">
+                <option value="Female">Female Avatar (සජීවී ගැහැණු රූපය)</option>
+                <option value="Male">Male Avatar (සජීවී පිරිමි රූපය)</option>
+            </select>
+            <button class="btn-action btn-ai" onclick="generateAI()">Create AI Video Review</button>
+            
+            <div id="videoStatus"></div>
+        </div>
+
+        <button class="btn-action" style="background:#333; margin-top:40px;" onclick="showPage('home')">View Live Store</button>
+    </div>
+</div>
+
+<script>
+    // 1. Navigation Control
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 2. Security Login
+    function checkLogin() {
+        const u = document.getElementById('user').value;
+        const p = document.getElementById('pass').value;
+        if(u === "admin" && p === "1234") { // Default credentials
+            showPage('vendor');
+        } else {
+            alert("Username හෝ Password වැරදියි!");
+        }
+    }
+
+    // 3. Product Database
+    let myProducts = [
+        {name: "AI Smart Watch Pro", price: 49, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400", tag: "Hot"},
+        {name: "Crystal Sound Pods", price: 35, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=400", tag: "New"}
+    ];
+
+    // 4. Interface Rendering
+    function displayProducts() {
+        const list = document.getElementById('product-list');
+        list.innerHTML = "";
+        myProducts.forEach(p => {
+            list.innerHTML += `
+                <div class="card">
+                    <span class="badge">${p.tag || 'Sale'}</span>
+                    <img src="${p.img}" alt="${p.name}">
+                    <h3>${p.name}</h3>
+                    <p style="font-size: 22px; font-weight:bold; color:#00e5ff;">$${p.price}.00</p>
+                    <button class="btn-buy">🛒 Add to Cart</button>
+                </div>
+            `;
+        });
+    }
+
+    // 5. AliExpress Logic
+    function importAli() {
+        const url = document.getElementById('aliUrl').value;
+        if(!url) return alert("කරුණාකර AliExpress ලින්ක් එක ලබා දෙන්න!");
+        
+        alert("AliExpress පද්ධතියට සම්බන්ධ වෙමින් පවතී. දත්ත ලබා ගනිමින්...");
+        
+        setTimeout(() => {
+            const newItem = {
+                name: "Imported Luxury Item",
+                price: 89,
+                img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=400",
+                tag: "Ali-Express"
+            };
+            myProducts.unshift(newItem);
+            displayProducts();
+            alert("සාර්ථකයි! AliExpress නිෂ්පාදනය ඔබේ Store එකට එකතු වුණා.");
+            showPage('home');
+        }, 2000);
+    }
+
+    // 6. AI Video Generation Logic
+    function generateAI() {
+        const gender = document.getElementById('genderSelect').value;
+        const status = document.getElementById('videoStatus');
+        
+        status.style.display = "block";
+        status.innerHTML = `<div class="loader"></div> 🚀 <b>AI ${gender} Avatar</b> ඔබේ නිෂ්පාදනය සඳහා වීඩියෝවක් සකසමින් පවතී...`;
+        
+        setTimeout(() => {
+            status.innerHTML = `✅ <b>Success!</b> AI Review වීඩියෝව සාර්ථකව නිම කළා. මෙය දැන් පාරිභෝගිකයන්ට නැරඹිය හැකිය.`;
+            alert("AI Video Review එක සූදානම්!");
+        }, 4000);
+    }
+
+    // Initialize Store
+    displayProducts();
+</script>
+
+</body>
+</html>

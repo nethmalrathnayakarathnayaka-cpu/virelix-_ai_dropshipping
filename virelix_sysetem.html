@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VIRELIX.AI | Integrated System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --neon: #00ffa3; --bg: #050508; --panel: #0f0f1a; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; overflow: hidden; }
+
+        /* පද්ධතියේ විවිධ පිටු (Screens) */
+        .screen { display: none; height: 100vh; width: 100vw; }
+        .active-screen { display: flex; }
+
+        /* Login Styling */
+        .login-box { margin: auto; background: var(--panel); padding: 40px; border-radius: 25px; width: 350px; text-align: center; border: 1px solid rgba(0,255,163,0.1); }
+        input { width: 100%; padding: 15px; margin: 10px 0; background: #1a1a2e; border: 1px solid #333; border-radius: 12px; color: white; box-sizing: border-box; }
+        .btn { width: 100%; padding: 15px; background: var(--neon); color: black; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; }
+
+        /* Dashboard Styling */
+        .sidebar { width: 260px; background: var(--panel); border-right: 1px solid rgba(255,255,255,0.05); padding: 20px; }
+        .main { flex-grow: 1; padding: 40px; overflow-y: auto; }
+        .nav-item { padding: 15px; border-radius: 12px; cursor: pointer; color: #888; display: flex; align-items: center; gap: 15px; margin-bottom: 5px; }
+        .nav-item:hover { background: rgba(0,255,163,0.05); color: var(--neon); }
+    </style>
+</head>
+<body>
+
+    <!-- 1. LOGIN SCREEN -->
+    <div id="loginScreen" class="screen active-screen">
+        <div class="login-box">
+            <h2 style="color: var(--neon)">virelix.ai</h2>
+            <p style="font-size: 12px; color: #666;">Master Control Access</p>
+            <input type="text" id="user" placeholder="Username">
+            <input type="password" id="pass" placeholder="Password">
+            <button class="btn" onclick="handleLogin()">AUTHORIZE ACCESS</button>
+        </div>
+    </div>
+
+    <!-- 2. DASHBOARD SCREEN -->
+    <div id="dashboardScreen" class="screen">
+        <div class="sidebar">
+            <h3 style="text-align: center;">virelix<span style="color: var(--neon)">.ai</span></h3>
+            <div class="nav-item" onclick="showSection('overview')"><i class="fa fa-home"></i> Overview</div>
+            <div class="nav-item" onclick="showSection('autopilot')"><i class="fa fa-robot"></i> Auto-Pilot</div>
+            <div class="nav-item" onclick="logout()"><i class="fa fa-sign-out-alt"></i> Logout</div>
+        </div>
+        <div class="main">
+            <h1>Welcome, Nethmal Rathnayaka</h1>
+            <div id="overviewSection">
+                <div style="background: var(--panel); padding: 30px; border-radius: 20px; border-left: 5px solid var(--neon);">
+                    <small>Today's Net Profit</small>
+                    <h2 style="font-size: 40px; margin: 10px 0;">LKR 18,400</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // පණගැන්වීමේ (Functional) Logic එක
+        function handleLogin() {
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+
+            // ඔයාට ඇතුළු වෙන්න පුළුවන් Username සහ Password එක
+            if(u === "nethmal" && p === "virelix2026") {
+                document.getElementById('loginScreen').classList.remove('active-screen');
+                document.getElementById('dashboardScreen').classList.add('active-screen');
+            } else {
+                alert("Login Failed! Please check your credentials.");
+            }
+        }
+
+        function logout() {
+            location.reload(); // Logout වූ විට නැවත මුලට යාම
+        }
+    </script>
+</body>
+</html>

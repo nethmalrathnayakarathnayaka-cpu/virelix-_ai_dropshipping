@@ -1,0 +1,27 @@
+function submitProduct() {
+    const product = {
+        // මෙතන ID එක හරියටම 'pName' වෙන්න ඕනේ
+        name: document.getElementById('pName').value, 
+        
+        // මෙතන ID එක 'pPrice' විතරක් වෙන්න ඕනේ ($40 කෑල්ල අයින් කරන්න)
+        price: document.getElementById('pPrice').value, 
+        
+        // මෙතන ID එක 'pImg' වෙන්න ඕනේ
+        img: document.getElementById('pImg').value,
+        cat: "all"
+    };
+
+    // සර්වර් එකට දත්ත යවන කොටස (මේක අනිවාර්යයෙන්ම තියෙන්න ඕනේ)
+    fetch('/api/add-product', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(product)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.success) {
+            alert(product.name + " සාර්ථකව සයිට් එකට ඇතුළත් කළා!");
+            window.location.href = "/"; // බඩුව දාපු ගමන් Home Page එකට යනවා
+        }
+    });
+}

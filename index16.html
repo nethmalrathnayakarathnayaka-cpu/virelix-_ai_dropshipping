@@ -1,0 +1,47 @@
+<div class="dashboard-sidebar">
+    <!-- අලුත් ලෝගෝ එක මෙතැනට එනවා -->
+    <div class="brand-container" style="padding: 40px 20px;">
+        <div class="virelix-icon" style="width: 60px; height: 60px; margin: 0 auto;">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25 35H75V85C75 87.7614 72.7614 90 70 90H30C27.2386 90 25 87.7614 25 85V35Z" fill="#00ffa3"/>
+                <path d="M40 35V25C40 19.4772 44.4772 15 50 15C55.5228 15 60 19.4772 60 25V35" stroke="#00ffa3" stroke-width="8" stroke-linecap="round"/>
+                <path d="M40 50L50 70L60 50" stroke="#050508" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <div class="virelix-text" style="font-size: 24px; color: #fff; text-align: center; margin-top: 10px;">virelix<span style="color:#00ffa3">.ai</span></div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav style="margin-top: 20px;">
+        <div class="nav-item active"><i class="fa fa-th-large"></i> Dashboard</div>
+        <div class="nav-item"><i class="fa fa-robot"></i> Auto-Pilot</div>
+        <div class="nav-item"><i class="fa fa-box"></i> Products</div>
+        <div class="nav-item"><i class="fa fa-chart-line"></i> Analytics</div>
+        <div class="nav-item" style="color: #ff4747; margin-top: 50px;"><i class="fa fa-sign-out-alt"></i> Logout</div>
+    </nav>
+</div>
+
+<style>
+    .dashboard-sidebar {
+        width: 260px;
+        height: 100vh;
+        background: #0f0f1a;
+        position: fixed;
+        left: 0;
+        top: 0;
+        border-right: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-item {
+        padding: 15px 30px;
+        color: #888;
+        cursor: pointer;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    .nav-item:hover, .nav-item.active {
+        color: #00ffa3;
+        background: rgba(0, 255, 163, 0.05);
+    }
+</style>

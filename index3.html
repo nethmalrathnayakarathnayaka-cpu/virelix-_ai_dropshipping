@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIRELIX - AI E-Commerce & Video Studio</title>
+    <style>
+        /* මූලික සැකසුම් */
+        body { font-family: 'Poppins', sans-serif; background: #08080c; color: #e0e0e0; margin: 0; scroll-behavior: smooth; }
+        nav { background: #11111d; padding: 15px; text-align: center; border-bottom: 2px solid #00e5ff; position: sticky; top: 0; z-index: 1000; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        nav a:hover { color: #00e5ff; }
+
+        /* පිටු පාලනය */
+        .page { display: none; padding: 20px; animation: fadeIn 0.4s ease; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Store Front Design */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px; max-width: 1200px; margin: auto; }
+        .card { background: #151522; padding: 15px; border-radius: 20px; border: 1px solid #222; text-align: center; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: #00e5ff; }
+        .card img { width: 100%; border-radius: 15px; height: 200px; object-fit: cover; }
+        .btn-buy { background: #00e5ff; color: black; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px; }
+
+        /* Dashboard & Form Styling */
+        .box { background: #11111d; padding: 30px; border-radius: 25px; max-width: 550px; margin: 40px auto; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h2 { color: #00e5ff; text-align: center; margin-bottom: 20px; }
+        label { display: block; margin-top: 15px; font-size: 13px; color: #888; }
+        input, select, textarea { width: 100%; padding: 12px; margin-top: 5px; border-radius: 10px; border: 1px solid #333; background: #050508; color: white; box-sizing: border-box; }
+        .btn-main { width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 20px; font-size: 16px; transition: 0.3s; }
+
+        /* AI Video Generator Area */
+        #ai-preview-zone { display: none; margin-top: 25px; border-radius: 15px; overflow: hidden; background: #000; border: 2px solid #9d00ff; }
+        video { width: 100%; display: block; }
+        #loading-overlay { display: none; text-align: center; padding: 20px; }
+        .spinner { border: 4px solid #111; border-top: 4px solid #00e5ff; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; display: inline-block; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .success-tag { background: #00ff88; color: black; font-size: 12px; font-weight: bold; padding: 5px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a onclick="showPage('home')">🏠 Store Front</a>
+    <a onclick="showPage('login')">🚀 Vendor Panel</a>
+</nav>
+
+<!-- 1. Home Page (Store) -->
+<div id="home" class="page active">
+    <h1 style="text-align:center; font-size: 35px; letter-spacing: 2px;">VIRELIX GLOBAL STORE</h1>
+    <p style="text-align:center; color:#888;">Premium Dropshipping Products Powered by AI</p>
+    <div id="product-list" class="grid"></div>
+</div>
+
+<!-- 2. Login Page -->
+<div id="login" class="page">
+    <div class="box">
+        <h2>Vendor Login</h2>
+        <input type="text" id="user" placeholder="Username">
+        <input type="password" id="pass" placeholder="Password">
+        <button class="btn-main" style="background:#00e5ff; color: black;" onclick="checkLogin()">Enter Dashboard</button>
+    </div>
+</div>
+
+<!-- 3. Advanced Vendor Dashboard -->
+<div id="vendor" class="page">
+    <div class="box">
+        <h2>Virelix AI Studio</h2>
+        
+        <p style="color:#888; font-size:14px;">Step 1: Product Details</p>
+        <label>Product Photo (Upload)</label>
+        <input type="file" id="prodImg" accept="image/*">
+
+        <label>AliExpress URL (Optional)</label>
+        <input type="text" id="aliUrl" placeholder="https://aliexpress.com/item/...">
+
+        <hr style="margin:25px 0; border-color:#222;">
+
+        <p style="color:#888; font-size:14px;">Step 2: AI Video Configuration</p>
+        <label>Select AI Avatar</label>
+        <select id="avatarType">
+            <option value="girl">AI Girl (Natural Review Style)</option>
+            <option value="boy">AI Boy (Professional Tech Style)</option>
+        </select>
+
+        <label>AI Prompt (වීඩියෝ එක ගැන විස්තරය)</label>
+        <textarea id="aiPrompt" rows="3" placeholder="උදා: 'A girl reviewing this product in a modern bedroom, talking about its quality...'"></textarea>
+
+        <button class="btn-main" style="background: linear-gradient(45deg, #9d00ff, #00e5ff); color:white;" onclick="generateAI()">Generate AI Review Video</button>
+
+        <!-- Animation Section -->
+        <div id="loading-overlay">
+            <div class="spinner"></div>
+            <p id="statusText" style="color:#00e5ff; font-size:14px; margin-top:10px;">AI Model එක සූදානම් කරමින් පවතී...</p>
+        </div>
+
+        <!-- AI Result Section -->
+        <div id="ai-preview-zone">
+            <div class="success-tag">✨ AI VIDEO GENERATED SUCCESSFULLY</div>
+            <video id="outputVideo" controls>
+                <source id="videoFile" src="" type="video/mp4">
+            </video>
+            <div style="padding:15px; background:#111; font-size:13px; border-top:1px solid #222;">
+                <strong>Prompt:</strong> <span id="displayPrompt" style="color:#aaa;"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // පේජ් මාරු කිරීම
+    function showPage(pId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pId).classList.add('active');
+    }
+
+    // ලොගින් පරීක්ෂාව
+    function checkLogin() {
+        if(document.getElementById('user').value === "admin" && document.getElementById('pass').value === "1234") {
+            showPage('vendor');
+        } else {
+            alert("වැරදි දත්ත ඇතුළත් කළා!");
+        }
+    }
+
+    // Default Products
+    let products = [
+        {name: "AI Smart Watch Pro", price: 49.00, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"},
+        {name: "Crystal Sound Pods", price: 35.00, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400"}
+    ];
+
+    function renderStore() {
+        const list = document.getElementById('product-list');
+        list.innerHTML = products.map(p => `
+            <div class="card">
+                <img src="${p.img}">
+                <h3>${p.name}</h3>
+                <p style="color:#00e5ff; font-weight:bold; font-size:22px;">$${p.price.toFixed(2)}</p>
+                <button class="btn-buy">Buy Now</button>
+            </div>
+        `).join('');
+    }
+
+    // AI Video Generation Process
+    function generateAI() {
+        const promptText = document.getElementById('aiPrompt').value;
+        const imgInput = document.getElementById('prodImg').value;
+        const avatar = document.getElementById('avatarType').value;
+
+        if(!promptText || !imgInput) {
+            alert("කරුණාකර පින්තූරයක් සහ Prompt එකක් ඇතුළත් කරන්න.");
+            return;
+        }
+
+        // UI එක සකස් කිරීම
+        document.getElementById('loading-overlay').style.display = "block";
+        document.getElementById('ai-preview-zone').style.display = "none";
+        document.getElementById('statusText').innerText = "පින්තූරය පරීක්ෂා කරමින් පවතී...";
+
+        let processSteps = [
+            "AI Avatar හඬ සකසමින් පවතී...",
+            "පසුබිම සහ ආලෝකය සකසමින් පවතී...",
+            "වීඩියෝව Render වෙමින් පවතී..."
+        ];
+
+        let i = 0;
+        let timer = setInterval(() => {
+            if(i < processSteps.length) {
+                document.getElementById('statusText').innerText = processSteps[i];
+                i++;
+            } else {
+                clearInterval(timer);
+                showFinalVideo(avatar, promptText);
+            }
+        }, 1800);
+    }
+
+    function showFinalVideo(avatar, prompt) {
+        document.getElementById('loading-overlay').style.display = "none";
+        document.getElementById('ai-preview-zone').style.display = "block";
+        document.getElementById('displayPrompt').innerText = prompt;
+        
+        const video = document.getElementById('outputVideo');
+        const source = document.getElementById('videoFile');
+
+        // මෙතනට ඔයාගේ ඇත්තම AI Video URL දාන්න පුළුවන්
+        if(avatar === "girl") {
+            source.src = "https://www.w3schools.com/html/mov_bbb.mp4";
+        } else {
+            source.src = "https://www.w3schools.com/html/horse.mp4";
+        }
+
+        video.load();
+        video.play();
+    }
+
+    // මුලින්ම Store එක පෙන්වන්න
+    renderStore();
+</script>
+
+</body>
+</html>

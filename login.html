@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VIRELIX - Vendor Login</title>
+    <style>
+        body { font-family: Arial; background: #0b0b0f; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-box { background: #151522; padding: 30px; border-radius: 15px; width: 350px; text-align: center; border: 1px solid #222; }
+        .logo { font-size: 24px; font-weight: bold; color: #00e5ff; margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #333; background: #1a1a2a; color: white; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #00e5ff; color: #000; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        p { font-size: 13px; color: #777; margin-top: 15px; }
+        a { color: #00e5ff; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="login-box">
+    <div class="logo">VIRELIX VENDOR</div>
+    <h2>Login to Dashboard</h2>
+    <input type="text" id="email" placeholder="Email or Username">
+    <input type="password" id="pass" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p>Don't have a vendor account? <a href="#">Apply Now</a></p>
+</div>
+
+<script>
+    function login() {
+        let email = document.getElementById('email').value;
+        let pass = document.getElementById('pass').value;
+
+        if(email == "admin" && pass == "1234") {
+            alert("සාර්ථකව ඇතුළු වුණා!");
+            window.location.href = "vendor.html"; // සාර්ථක නම් Vendor Dashboard එකට යවනවා
+        } else {
+            alert("වැරදි පරිශීලක නාමයක් හෝ මුරපදයක්!");
+        }
+    }
+</script>
+
+</body>
+</html>

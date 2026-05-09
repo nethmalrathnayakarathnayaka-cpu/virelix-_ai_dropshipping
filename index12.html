@@ -1,0 +1,9 @@
+// මේක ඔයාගේ කලින් Scripts වලට එකතු කරන්න
+function sendTrackingUpdate(orderId, customerPhone, trackingNumber) {
+    const message = `Hello! Your VIRELIX order ${orderId} has been shipped. Track here: https://virelix.com/track?id=${trackingNumber}`;
+    
+    console.log("Sending SMS to " + customerPhone + " : " + message);
+    
+    // මෙතැනදී Twilio හෝ වෙනත් SMS Gateway එකක් හරහා මැසේජ් එක යැවේ.
+    alert("✅ Tracking info sent to " + customerPhone);
+}

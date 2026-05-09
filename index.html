@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIRELIX — AI Powered Dropshipping Marketplace</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family:Arial;
+      background:#0b0b0f;
+      color:white;
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      padding:15px 20px;
+      background:#11111a;
+      border-bottom:1px solid #222;
+      align-items:center;
+    }
+
+    .logo{
+      font-size:22px;
+      font-weight:bold;
+      color:#00e5ff;
+    }
+
+    nav a{
+      color:white;
+      margin:0 8px;
+      text-decoration:none;
+      font-size:14px;
+      cursor:pointer;
+    }
+
+    .hero{
+      text-align:center;
+      padding:60px 20px;
+      background:linear-gradient(135deg,#0f0f1a,#05050a);
+    }
+
+    .hero h1{
+      color:#00e5ff;
+      font-size:38px;
+    }
+
+    .btn{
+      background:#00e5ff;
+      border:none;
+      padding:10px 15px;
+      margin-top:10px;
+      cursor:pointer;
+      font-weight:bold;
+      border-radius:5px;
+    }
+
+    .categories{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      padding:15px;
+      flex-wrap:wrap;
+    }
+
+    .cat-btn{
+      background:#1a1a2a;
+      border:1px solid #333;
+      color:white;
+      padding:8px 12px;
+      border-radius:20px;
+      cursor:pointer;
+    }
+
+    .products{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:15px;
+      padding:20px;
+    }
+
+    .card{
+      background:#151522;
+      padding:10px;
+      border-radius:10px;
+      text-align:center;
+    }
+
+    .card img{
+      width:100%;
+      border-radius:10px;
+    }
+
+    .price{color:#00e5ff;}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">VIRELIX</div>
+  <nav>
+    <a>Home</a>
+    <a>Shop</a>
+    <a>Vendors</a>
+    <a>Login</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>AI Powered Dropshipping Marketplace</h1>
+  <p>Fashion • Electronics • Viral Products</p>
+  <button class="btn">Start Shopping</button>
+</section>
+
+<div class="categories">
+  <button class="cat-btn" onclick="filter('all')">All</button>
+  <button class="cat-btn" onclick="filter('fashion')">Fashion</button>
+  <button class="cat-btn" onclick="filter('electronics')">Electronics</button>
+  <button class="cat-btn" onclick="filter('gadgets')">Gadgets</button>
+</div>
+
+<section class="products" id="products">
+</section>
+
+<footer style="text-align:center;padding:20px;color:#777;">
+© 2026 VIRELIX Marketplace | Built by Mr. Nethmal Rathnayaka
+</footer>
+
+<script>
+let products = [
+  {name:"Smart Watch", img:"https://via.placeholder.com/300", price:25, cat:"electronics"},
+  {name:"LED Shoes", img:"https://via.placeholder.com/300", price:40, cat:"fashion"},
+  {name:"Mini Projector", img:"https://via.placeholder.com/300", price:60, cat:"electronics"},
+  {name:"Stylish Jacket", img:"https://via.placeholder.com/300", price:35, cat:"fashion"},
+  {name:"Bluetooth Speaker", img:"https://via.placeholder.com/300", price:20, cat:"gadgets"}
+];
+
+// ඇණවුම් ලබා ගන්නා Function එක
+function addToCart(pName, pPrice) {
+    alert(pName + " ඇණවුම සාර්ථකයි! මිල: $" + pPrice);
+    
+    // Backend එකට දත්ත යැවීම
+    fetch('/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product: pName, price: pPrice })
+    })
+    .then(res => res.json())
+    .then(data => console.log("Server Response:", data))
+    .catch(err => console.log("Error:", err));
+}
+
+function render(filterCat){
+  let box = document.getElementById("products");
+  box.innerHTML = "";
+
+  products.forEach(p=>{
+    if(filterCat=="all" || p.cat==filterCat){
+      // මෙතනදී තමයි වැදගත්ම දේ: බටන් එකට onclick එක සම්බන්ධ කිරීම
+      box.innerHTML += `
+        <div class='card'>
+          <img src='${p.img}' />
+          <h3>${p.name}</h3>
+          <p class='price'>$${p.price}</p>
+          <button class='btn' onclick="addToCart('${p.name}', ${p.price})">Add to Cart</button>
+        </div>
+      `;
+    }
+  });
+}
+
+function filter(cat){
+  render(cat);
+}
+
+render('all');
+</script>
+
+</body>
+</html>
+<!-- Live Chat & Mobile Floating UI -->
+<style>
+    /* Floating Chat Button */
+    .chat-trigger {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(45deg, #ff4747, #ff8e53);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 25px;
+        box-shadow: 0 10px 25px rgba(255, 71, 71, 0.4);
+        cursor: pointer;
+        z-index: 10000;
+        transition: 0.3s;
+    }
+    .chat-trigger:hover { transform: scale(1.1); }
+
+    /* Chat Window */
+    .chat-window {
+        position: fixed;
+        bottom: 100px;
+        right: 30px;
+        width: 350px;
+        height: 450px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 10000;
+        border: 1px solid #eee;
+    }
+
+    .chat-header {
+        background: #191919;
+        color: white;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .chat-body {
+        flex-grow: 1;
+        padding: 20px;
+        background: #f9f9f9;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .msg { padding: 10px 15px; border-radius: 15px; max-width: 80%; font-size: 14px; }
+    .msg.bot { background: #eee; align-self: flex-start; color: #333; }
+    .msg.user { background: #ff4747; align-self: flex-end; color: white; }
+
+    .chat-input {
+        padding: 15px;
+        border-top: 1px solid #eee;
+        display: flex;
+        gap: 10px;
+    }
+    
+    .chat-input input {
+        flex-grow: 1;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 20px;
+        outline: none;
+    }
+
+    /* Mobile Bottom Nav */
+    @media (max-width: 768px) {
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            z-index: 9999;
+        }
+        .mobile-nav i { font-size: 20px; color: #666; }
+        .mobile-nav i.active { color: #ff4747; }
+    }
+</style>
+
+<!-- HTML Elements -->
+<div class="chat-trigger" onclick="toggleChat()">
+    <i class="fa fa-comments"></i>
+</div>
+
+<div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+        <div style="width:10px; height:10px; background:#00ff88; border-radius:50%;"></div>
+        <b>VIRELIX Support</b>
+    </div>
+    <div class="chat-body" id="chatBody">
+        <div class="msg bot">ආයුබෝවන්! TRENDLINE ස්ටෝර් එකට සාදරයෙන් පිළිගන්නවා. මම ඔබට උදව් කරන්නේ කෙසේද?</div>
+    </div>
+    <div class="chat-input">
+        <input type="text" id="userInput" placeholder="ඔබේ පණිවිඩය මෙතන ලියන්න...">
+        <button onclick="sendMessage()" style="background:none; border:none; color:#ff4747; font-size:20px; cursor:pointer;">
+            <i class="fa fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<div class="mobile-nav">
+    <i class="fa fa-home active"></i>
+    <i class="fa fa-search"></i>
+    <i class="fa fa-heart"></i>
+    <i class="fa fa-shopping-bag"></i>
+    <i class="fa fa-user"></i>
+</div>
+
+<!-- JS Logic -->
+<script>
+    function toggleChat() {
+        const win = document.getElementById('chatWindow');
+        win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('userInput');
+        const body = document.getElementById('chatBody');
+        
+        if(input.value.trim() === "") return;
+
+        // User Message
+        const userMsg = document.createElement('div');
+        userMsg.className = "msg user";
+        userMsg.innerText = input.value;
+        body.appendChild(userMsg);
+
+        const val = input.value;
+        input.value = "";
+
+        // Simple Bot Reply
+        setTimeout(() => {
+            const botMsg = document.createElement('div');
+            botMsg.className = "msg bot";
+            if(val.toLowerCase().includes("මිල")) {
+                botMsg.innerText = "භාණ්ඩයේ මිල විස්තර පේජ් එකේ සඳහන් කර තිබෙනවා. වැඩිදුර විස්තර සඳහා රැඳී සිටින්න.";
+            } else {
+                botMsg.innerText = "ඔබේ පණිවිඩය අපට ලැබුණා. අපේ නියෝජිතයෙක් ඉක්මනින් ඔබව සම්බන්ධ කර ගනීවි.";
+            }
+            body.appendChild(botMsg);
+            body.scrollTop = body.scrollHeight;
+        }, 1000);
+    }
+</script>
+// මේ Logic එක ඔයාගේ ප්‍රධාන කේතයට එකතු කරන්න
+function navigateTo(page) {
+    // පිටු අතර මාරු වීම (Navigation)
+    if(page === 'dashboard') {
+        window.location.href = "dashboard.html";
+    } else if(page === 'tracking') {
+        window.location.href = "tracking.html";
+    }
+}
+
+// Login එක පණගැන්වීම
+function checkLogin() {
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+    
+    if(user === "nethmal" && pass === "virelix2026") {
+        localStorage.setItem("isLoggedIn", "true"); // Session එක සේව් කිරීම
+        navigateTo('dashboard');
+    } else {
+        alert("වැරදි Username හෝ Password එකක්!");
+    }
+}
+

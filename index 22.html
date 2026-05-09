@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VIRELIX.AI | Management Suite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --neon: #00ffa3; --bg: #050508; --panel: #0f0f1a; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: white; margin: 0; overflow: hidden; }
+
+        /* Navigation Management */
+        .page { display: none; height: 100vh; }
+        .page.active { display: flex; }
+
+        /* Login Styles */
+        #login-page { flex-direction: column; justify-content: center; align-items: center; }
+        .login-box { background: var(--panel); padding: 40px; border-radius: 25px; border: 1px solid rgba(0,255,163,0.1); width: 320px; text-align: center; }
+
+        /* Admin Layout */
+        .sidebar { width: 260px; background: var(--panel); border-right: 1px solid rgba(255,255,255,0.05); padding: 20px; }
+        .main-view { flex-grow: 1; padding: 40px; overflow-y: auto; background: linear-gradient(135deg, #050508 0%, #0a0a1a 100%); }
+        
+        .nav-item { padding: 15px; color: #888; cursor: pointer; display: flex; align-items: center; gap: 15px; border-radius: 10px; margin-bottom: 5px; }
+        .nav-item.active, .nav-item:hover { color: var(--neon); background: rgba(0,255,163,0.05); }
+
+        /* Elements from your screenshots */
+        .card { background: rgba(255,255,255,0.02); padding: 30px; border-radius: 20px; border: 1px solid #1a1a2e; margin-bottom: 20px; }
+        .btn-main { background: var(--neon); color: black; border: none; padding: 12px 25px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        input { width: 100%; padding: 12px; margin: 10px 0; background: #1a1a2e; border: 1px solid #333; border-radius: 10px; color: white; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+
+    <!-- SECTION 1: LOGIN -->
+    <div id="login-page" class="page active">
+        <div style="font-size: 32px; font-weight: 900; margin-bottom: 20px;">virelix<span style="color:var(--neon)">.ai</span></div>
+        <div class="login-box">
+            <input type="text" id="user" placeholder="Username">
+            <input type="password" id="pass" placeholder="Password">
+            <button class="btn-main" onclick="attemptLogin()">LOGIN TO SYSTEM</button>
+        </div>
+    </div>
+
+    <!-- SECTION 2: MAIN DASHBOARD SYSTEM -->
+    <div id="dashboard-page" class="page">
+        <div class="sidebar">
+            <div style="font-size: 22px; font-weight: 800; margin-bottom: 40px; text-align: center;">virelix<span style="color:var(--neon)">.ai</span></div>
+            <div class="nav-item active" onclick="switchTab('overview')"><i class="fa fa-home"></i> Overview</div>
+            <div class="nav-item" onclick="switchTab('products')"><i class="fa fa-box"></i> Products</div>
+            <div class="nav-item" onclick="switchTab('autopilot')"><i class="fa fa-robot"></i> Auto-Pilot</div>
+            <div class="nav-item" style="margin-top: 50px;" onclick="location.reload()"><i class="fa fa-sign-out-alt"></i> Logout</div>
+        </div>
+
+        <div class="main-view" id="main-display">
+            <!-- Content changes dynamically here -->
+            <h1>Welcome, Nethmal Rathnayaka</h1>
+            <div class="card" style="border-left: 5px solid var(--neon);">
+                <small>Today's Net Profit</small>
+                <h2 style="font-size: 40px; margin: 10px 0;">LKR 18,400</h2>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function attemptLogin() {
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+            if(u === "nethmal" && p === "virelix2026") {
+                document.getElementById('login-page').classList.remove('active');
+                document.getElementById('dashboard-page').classList.add('active');
+            } else {
+                alert("වැරදි දත්ත!");
+            }
+        }
+
+        function switchTab(tab) {
+            const display = document.getElementById('main-display');
+            if(tab === 'products') {
+                display.innerHTML = `<h2>Product Management</h2><div class="card">No products imported yet.</div>`;
+            } else if(tab === 'autopilot') {
+                display.innerHTML = `<h2>Auto-Pilot Engine</h2><div class="card">Dropshipper API Status: <span style="color:var(--neon)">Ready</span></div><button class="btn-main">RUN ENGINE</button>`;
+            } else {
+                location.reload(); 
+            }
+        }
+    </script>
+</body>
+</html>
